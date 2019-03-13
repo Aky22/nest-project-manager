@@ -1,0 +1,25 @@
+type Query {
+    getTasks: [Task]
+    task(id: ID!):Task
+}
+
+type Mutation {
+    createTask(createTaskInput: CreateTaskInput): Task
+}
+
+type Subscription {
+    taskCreated: Task
+}
+
+type Task {
+    id: Int
+    name: String
+    description: String
+    project: Project
+}
+
+input CreateTaskInput {
+    name: String,
+    description: String,
+    project: CreateProjectInput
+}
