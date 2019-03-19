@@ -6,7 +6,7 @@ import { Task } from '../graphql.schema';
 @Injectable()
 export class TaskService {
     async findOneById(id: number): Promise<Task> {
-        return await this.taskRepository.findOne(id);
+        return await this.taskRepository.findOne(id, {relations: ["project"]});
     }
   constructor(
     @InjectRepository(Task)

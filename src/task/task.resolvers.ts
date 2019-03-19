@@ -14,7 +14,7 @@ export class TaskResolvers {
 
     @Query()
     @UseGuards(TaskGuard)
-    async getProjects() {
+    async getTasks() {
         return await this.taskService.findAll();
     }
 
