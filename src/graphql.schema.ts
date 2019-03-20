@@ -7,7 +7,7 @@ export class CreateProjectInput {
 export class CreateTaskInput {
     name?: string;
     description?: string;
-    project?: CreateProjectInput;
+    projectID?: number;
 }
 
 export abstract class IMutation {
@@ -21,6 +21,7 @@ export class Project {
     name?: string;
     description?: string;
     tasks?: Task[];
+    taskCount?: number;
 }
 
 export abstract class IQuery {

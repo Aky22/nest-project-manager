@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Project } from '../project/project.entity';
 
 @Entity()
-export class Task {
+export class TaskEntity {
     @PrimaryGeneratedColumn()
     id?: number;
 

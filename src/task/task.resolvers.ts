@@ -1,8 +1,7 @@
 import { ParseIntPipe, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
-import { Task } from './task.entity';
-import { CreateTaskInput } from '../graphql.schema';
+import { CreateTaskInput, Task } from '../graphql.schema';
 import { TaskService } from './task.service';
 import { TaskGuard } from './task.guard';
 
@@ -27,7 +26,10 @@ export class TaskResolvers {
     }
 
     @Mutation('createTask')
-    async create(@Args('createTaskInput') args: CreateTaskInput): Promise<Task> {
+    async create(
+      @Args('createTaskInput')
+      args: CreateTaskInput,
+    ): Promise<Task> {
         const createdTask = await this.taskService.create(args);
         pubSub.publish('taskCreated', { taskCreated: createdTask });
         return createdTask;

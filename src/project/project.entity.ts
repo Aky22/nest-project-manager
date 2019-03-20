@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Task } from '../task/task.entity';
+import { TaskEntity } from '../task/task.entity';
 
 @Entity()
 export class Project {
@@ -12,7 +12,10 @@ export class Project {
     @Column('text')
     description?: string;
 
-    @OneToMany(type => Task, task => task.project)
-    tasks?: Task[];
+    @OneToMany(type => TaskEntity, task => task.project)
+    tasks?: TaskEntity[];
+
+    @Column('int')
+    taskCount?: number;
 
 }
