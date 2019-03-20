@@ -1,3 +1,4 @@
 node_modules
 .docker
 .idea
+./src/graphql.schema.ts

@@ -1,8 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany } from 'typeorm';
 import { TaskEntity } from '../task/task.entity';
+import { UserEntity } from '../user/user.entity';
 
 @Entity()
-export class Project {
+export class ProjectEntity {
     @PrimaryGeneratedColumn()
     id?: number;
 
@@ -15,7 +16,7 @@ export class Project {
     @OneToMany(type => TaskEntity, task => task.project)
     tasks?: TaskEntity[];
 
-    @Column('int')
-    taskCount?: number;
+    @ManyToMany(type => UserEntity, user => user.project)
+    users?: UserEntity[];
 
 }

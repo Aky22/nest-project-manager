@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateTaskInput } from '../graphql.schema';
@@ -10,7 +10,7 @@ export class TaskService {
   constructor(
     @InjectRepository(TaskEntity)
     private readonly taskRepository: Repository<TaskEntity>,
-    @Inject(ProjectService)
+    @Inject(forwardRef(() => ProjectService))
     private readonly projectService: ProjectService,
   ) {}
 
@@ -20,6 +20,10 @@ export class TaskService {
 
   async findAll(): Promise<TaskEntity[]> {
     return await this.taskRepository.find({relations: ['project']});
+  }
+
+  async findAllByProject(projectID: number): Promise<TaskEntity[]> {
+    return await this.taskRepository.find({where: {project: {id: projectID}}});
   }
 
   async create(task: CreateTaskInput) {

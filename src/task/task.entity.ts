@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { Project } from '../project/project.entity';
+import { ProjectEntity } from '../project/project.entity';
 
 @Entity()
 export class TaskEntity {
@@ -12,7 +12,7 @@ export class TaskEntity {
     @Column('text')
     description?: string;
 
-    @ManyToOne(type => Project, project => project.tasks)
-    project?: Project;
+    @ManyToOne(type => ProjectEntity, project => project.tasks)
+    project?: ProjectEntity[];
 
 }
