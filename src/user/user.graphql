@@ -1,0 +1,34 @@
+type Query {
+    getUsers: [User]
+    user(id: ID!):User
+}
+
+type Mutation {
+    createUser(createUserInput: CreateUserInput): User
+}
+
+type Subscription {
+    userCreated: User
+}
+
+type User {
+    id: Int
+    username: String
+    password: String
+    emaiL: String
+    role: String
+    project: Project
+}
+
+input CreateUserInput {
+    username: String!
+    password: String!
+    email: String!
+    role: UserRole!
+}
+
+enum UserRole {
+    ADMIN,
+    EDITOR,
+    GUEST
+}

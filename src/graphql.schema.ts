@@ -1,4 +1,10 @@
 /* tslint:disable */
+export enum UserRole {
+    ADMIN = "ADMIN",
+    EDITOR = "EDITOR",
+    GUEST = "GUEST"
+}
+
 export class CreateProjectInput {
     name?: string;
     description?: string;
@@ -11,9 +17,10 @@ export class CreateTaskInput {
 }
 
 export class CreateUserInput {
-    username?: string;
-    password?: string;
-    role?: string;
+    username: string;
+    password: string;
+    email: string;
+    role: UserRole;
 }
 
 export abstract class IMutation {
@@ -67,6 +74,7 @@ export class User {
     id?: number;
     username?: string;
     password?: string;
+    emaiL?: string;
     role?: string;
     project?: Project;
 }
