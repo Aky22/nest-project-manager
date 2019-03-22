@@ -13,6 +13,6 @@ export class TaskEntity {
     description?: string;
 
     @ManyToOne(type => ProjectEntity, project => project.tasks)
-    project?: ProjectEntity[];
+    project?: ProjectEntity;
 
 }

@@ -11,8 +11,8 @@ import { TaskModule } from './task/task.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot(),
-    ProjectModule,
     TaskModule,
+    ProjectModule,
     GraphQLModule.forRoot({
       typePaths: ['./**/*.graphql'],
       playground: true,

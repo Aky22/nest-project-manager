@@ -1,49 +1,52 @@
-import { forwardRef, Inject, ParseIntPipe, UseGuards } from '@nestjs/common';
-import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
+import { ParseIntPipe, UseGuards } from '@nestjs/common';
+import { Args, Mutation, Query, Resolver, Subscription, ResolveProperty, Parent } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
 import { Project } from '../graphql.schema';
 import { CreateProjectInput } from '../graphql.schema';
-import { ProjectService } from './project.service';
 import { ProjectGuard } from './project.guard';
-import { TaskService } from '../task/task.service';
 import { ProjectEntity } from './project.entity';
-import { TaskEntity } from '../task/task.entity';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 const pubSub = new PubSub();
 
 @Resolver('Project')
 export class ProjectResolvers {
   constructor(
-    private readonly projectService: ProjectService,
-    @Inject(forwardRef(() => TaskService))
-    private readonly taskService: TaskService) {
+    @InjectRepository(ProjectEntity)
+    private readonly projectRepository: Repository<ProjectEntity>) {
   }
 
   @Query()
   @UseGuards(ProjectGuard)
   async getProjects() {
-    const projects = await this.projectService.findAll();
-    const projRet: Project[] = [];
-    for (const entity of projects) {
-      const task = await this.taskService.findAllByProject(entity.id);
-      projRet.push(ProjectResolvers.taskCount(entity, task));
-    }
-    return projRet;
+    return await this.projectRepository.find();
   }
 
-  @Query('project')
-  async findOneById(
+  @Query()
+  async project(
     @Args('id', ParseIntPipe)
       id: number,
-  ): Promise<Project> {
-    const project = await this.projectService.findOneById(id);
-    const tasks = await this.taskService.findAllByProject(project.id);
-    return ProjectResolvers.taskCount(project, tasks);
+  ): Promise<ProjectEntity> {
+    return await this.projectRepository.findOne(id);
+  }
+
+  @ResolveProperty('taskCount')
+  async getTaskCount(@Parent() project) {
+    const { id } = project;
+    return (await this.projectRepository.findOne(id, {relations: ['tasks']})).tasks.length;
+  }
+
+  @ResolveProperty('tasks')
+  async getTasks(@Parent() project) {
+    const { id } = project;
+    return (await this.projectRepository.findOne(id, {relations: ['tasks']})).tasks;
   }
 
   @Mutation('createProject')
-  async create(@Args('createProjectInput') args: CreateProjectInput): Promise<Project> {
-    const createdProject = await this.projectService.create(args);
+  async create(@Args('createProjectInput') args: CreateProjectInput): Promise<ProjectEntity> {
+    const entity = this.projectRepository.create(args);
+    const createdProject = await this.projectRepository.save(entity);
     pubSub.publish('projectCreated', { projectCreated: createdProject });
     return createdProject;
   }
@@ -53,16 +56,6 @@ export class ProjectResolvers {
     return {
       subscribe: () => pubSub.asyncIterator('projectCreated'),
     };
-  }
-
-  static taskCount(project: ProjectEntity, tasks: TaskEntity[]): Project {
-    const projRet = new Project();
-    projRet.id = project.id;
-    projRet.name = project.name;
-    projRet.description = project.description;
-    projRet.tasks = project.tasks;
-    projRet.taskCount = tasks.length;
-    return projRet;
   }
 
 }

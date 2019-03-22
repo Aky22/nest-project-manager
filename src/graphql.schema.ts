@@ -10,10 +10,18 @@ export class CreateTaskInput {
     projectID?: number;
 }
 
+export class CreateUserInput {
+    username?: string;
+    password?: string;
+    role?: string;
+}
+
 export abstract class IMutation {
     abstract createProject(createProjectInput?: CreateProjectInput): Project | Promise<Project>;
 
     abstract createTask(createTaskInput?: CreateTaskInput): Task | Promise<Task>;
+
+    abstract createUser(createUserInput?: CreateUserInput): User | Promise<User>;
 }
 
 export class Project {
@@ -33,6 +41,10 @@ export abstract class IQuery {
 
     abstract task(id: string): Task | Promise<Task>;
 
+    abstract getUsers(): User[] | Promise<User[]>;
+
+    abstract user(id: string): User | Promise<User>;
+
     abstract temp__(): boolean | Promise<boolean>;
 }
 
@@ -40,11 +52,21 @@ export abstract class ISubscription {
     abstract projectCreated(): Project | Promise<Project>;
 
     abstract taskCreated(): Task | Promise<Task>;
+
+    abstract userCreated(): User | Promise<User>;
 }
 
 export class Task {
     id?: number;
     name?: string;
     description?: string;
+    project?: Project;
+}
+
+export class User {
+    id?: number;
+    username?: string;
+    password?: string;
+    role?: string;
     project?: Project;
 }
