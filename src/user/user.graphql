@@ -15,9 +15,8 @@ type User {
     id: Int
     username: String
     password: String
-    emaiL: String
+    email: String
     role: String
-    project: Project
 }
 
 input CreateUserInput {

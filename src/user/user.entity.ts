@@ -13,13 +13,13 @@ export class UserEntity {
   id?: number;
 
   @Column()
-  username: string;
+  username?: string;
 
   @Column()
-  password: string;
+  password?: string;
 
   @Column()
-  email: string;
+  email?: string;
 
   @ManyToMany(type => ProjectEntity, project => project.users)
   project?: ProjectEntity[];

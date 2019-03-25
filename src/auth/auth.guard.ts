@@ -1,6 +1,7 @@
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { JwtAuthGuard } from './interfaces/jwt-auth.guard';
+import { Reflector } from '@nestjs/core';
 
 @Injectable()
 export class GqlAuthGuard extends JwtAuthGuard {

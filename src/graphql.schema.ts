@@ -8,6 +8,7 @@ export enum UserRole {
 export class CreateProjectInput {
     name?: string;
     description?: string;
+    userIDs?: number[];
 }
 
 export class CreateTaskInput {
@@ -37,6 +38,7 @@ export class Project {
     description?: string;
     tasks?: Task[];
     taskCount?: number;
+    users?: User;
 }
 
 export abstract class IQuery {
@@ -74,7 +76,6 @@ export class User {
     id?: number;
     username?: string;
     password?: string;
-    emaiL?: string;
+    email?: string;
     role?: string;
-    project?: Project;
 }

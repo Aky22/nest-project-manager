@@ -7,6 +7,7 @@ import { TaskEntity } from './task.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProjectEntity } from '../project/project.entity';
+import { Roles } from '../auth/roles.decorator';
 
 const pubSub = new PubSub();
 
@@ -25,6 +26,7 @@ export class TaskResolvers {
     }
 
     @Query()
+    @Roles('admin')
     async task(
         @Args('id', ParseIntPipe)
         id: number,

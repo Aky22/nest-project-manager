@@ -5,8 +5,10 @@ import { Project } from '../graphql.schema';
 import { CreateProjectInput } from '../graphql.schema';
 import { ProjectGuard } from './project.guard';
 import { ProjectEntity } from './project.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Roles } from '../auth/roles.decorator';
+import { UserEntity } from '../user/user.entity';
 
 const pubSub = new PubSub();
 
@@ -14,7 +16,9 @@ const pubSub = new PubSub();
 export class ProjectResolvers {
   constructor(
     @InjectRepository(ProjectEntity)
-    private readonly projectRepository: Repository<ProjectEntity>) {
+    private readonly projectRepository: Repository<ProjectEntity>,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>) {
   }
 
   @Query()
@@ -43,9 +47,16 @@ export class ProjectResolvers {
     return (await this.projectRepository.findOne(id, {relations: ['tasks']})).tasks;
   }
 
+  @ResolveProperty('users')
+  async getUsers(@Parent() project) {
+    const { id } = project;
+    return (await this.projectRepository.findOne(id, {relations: ['users']})).users;
+  }
+
   @Mutation('createProject')
   async create(@Args('createProjectInput') args: CreateProjectInput): Promise<ProjectEntity> {
     const entity = this.projectRepository.create(args);
+    entity.users = (await this.userRepository.find({where: {id: In(args.userIDs)}}));
     const createdProject = await this.projectRepository.save(entity);
     pubSub.publish('projectCreated', { projectCreated: createdProject });
     return createdProject;
