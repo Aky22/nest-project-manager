@@ -34,19 +34,13 @@ export class TaskResolvers {
         return await this.taskRepository.findOne(id);
     }
 
-    @ResolveProperty('project')
-    async getProject(@Parent() task) {
-        const { id } = task;
-        return (await this.taskRepository.findOne(id, {relations: ['project']})).project;
-    }
-
     @Mutation('createTask')
     async create(
       @Args('createTaskInput')
       args: CreateTaskInput,
     ): Promise<TaskEntity> {
         const entity = this.taskRepository.create(args);
-        entity.project = await this.projectRepository.findOne(args.projectID);
+        entity.project = this.projectRepository.findOne(args.projectID);
         const createdTask = await this.taskRepository.save(entity);
         pubSub.publish('taskCreated', { taskCreated: createdTask });
         return createdTask;

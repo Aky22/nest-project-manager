@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, BeforeInsert } from 'typeorm';
 import { ProjectEntity } from '../project/project.entity';
+import * as crypto from 'crypto';
 
 export enum UserRole {
   ADMIN = 'admin',
@@ -20,6 +21,11 @@ export class UserEntity {
 
   @Column()
   email?: string;
+
+  @BeforeInsert()
+  hashPassword() {
+    this.password = crypto.createHmac('sha512', this.password).digest('hex');
+  }
 
   @ManyToMany(type => ProjectEntity, project => project.users)
   project?: ProjectEntity[];

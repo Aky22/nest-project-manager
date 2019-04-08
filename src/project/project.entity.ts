@@ -14,10 +14,10 @@ export class ProjectEntity {
     description?: string;
 
     @OneToMany(type => TaskEntity, task => task.project)
-    tasks?: TaskEntity[];
+    tasks?: Promise<TaskEntity[]>;
 
     @ManyToMany(type => UserEntity, user => user.project)
     @JoinTable()
-    users?: UserEntity[];
+    users?: Promise<UserEntity[]>;
 
 }

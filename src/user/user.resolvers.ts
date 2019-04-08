@@ -6,14 +6,19 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './user.entity';
 import { UserGuard } from './user.guard';
+import { JwtPayload } from '../auth/interfaces/jwt-payload.interface';
+import { AuthService } from '../auth/auth.service';
+
 const pubSub = new PubSub();
 
 @Resolver('User')
 export class UserResolvers {
   private crypto = require('crypto');
+
   constructor(
     @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>) {
+    private readonly userRepository: Repository<UserEntity>,
+    private readonly authService: AuthService) {
   }
 
   @Query()
@@ -30,9 +35,18 @@ export class UserResolvers {
     return await this.userRepository.findOne(id);
   }
 
+  @Query()
+  async login(
+    @Args('username')
+      username: string,
+    @Args('password')
+      password: string,
+  ): Promise<any> {
+      return await this.authService.login(username, password);
+  }
+
   @Mutation('createUser')
   async create(@Args('createUserInput') args: CreateUserInput): Promise<UserEntity> {
-    args.password = this.crypto.createHmac('sha512', args.password).digest('hex');
     const entity = this.userRepository.create(args);
     const createdProject = await this.userRepository.save(entity);
     pubSub.publish('projectCreated', { projectCreated: createdProject });

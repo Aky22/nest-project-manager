@@ -1,3 +1,9 @@
+
+/** ------------------------------------------------------
+ * THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+ * -------------------------------------------------------
+ */
+
 /* tslint:disable */
 export enum UserRole {
     ADMIN = "ADMIN",
@@ -22,6 +28,13 @@ export class CreateUserInput {
     password: string;
     email: string;
     role: UserRole;
+}
+
+export class JwtPayload {
+    expires_in?: number;
+    access_token?: string;
+    user_id?: User;
+    status?: number;
 }
 
 export abstract class IMutation {
@@ -53,6 +66,8 @@ export abstract class IQuery {
     abstract getUsers(): User[] | Promise<User[]>;
 
     abstract user(id: string): User | Promise<User>;
+
+    abstract login(username: string, password?: string): JwtPayload | Promise<JwtPayload>;
 
     abstract temp__(): boolean | Promise<boolean>;
 }

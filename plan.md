@@ -4,7 +4,7 @@
  Származtatott dolgok, userek, autentikáció ha belefér, rákeresni, hogy mik a népszerű graphql implementációk
  Másik entitásból származó dolgok
 # week 8
- Resolver typeorm lazyload megnézni. Auth befejezni, Role based authorizáció,
+ Auth befejezni, Role based authorizáció,
  React frontend begin - Query és valami design hozzá, megnézni, hogy a Decorator hozzáfér-e adatokhoz kívülről
 # week 9
  React frontend befejezés - Mutációk

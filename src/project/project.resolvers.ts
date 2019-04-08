@@ -37,26 +37,23 @@ export class ProjectResolvers {
 
   @ResolveProperty('taskCount')
   async getTaskCount(@Parent() project) {
-    const { id } = project;
-    return (await this.projectRepository.findOne(id, {relations: ['tasks']})).tasks.length;
+    return (await project.tasks).length;
   }
 
   @ResolveProperty('tasks')
   async getTasks(@Parent() project) {
-    const { id } = project;
-    return (await this.projectRepository.findOne(id, {relations: ['tasks']})).tasks;
+    return await project.tasks;
   }
 
   @ResolveProperty('users')
   async getUsers(@Parent() project) {
-    const { id } = project;
-    return (await this.projectRepository.findOne(id, {relations: ['users']})).users;
+    return await project.users;
   }
 
   @Mutation('createProject')
   async create(@Args('createProjectInput') args: CreateProjectInput): Promise<ProjectEntity> {
     const entity = this.projectRepository.create(args);
-    entity.users = (await this.userRepository.find({where: {id: In(args.userIDs)}}));
+    entity.users = this.userRepository.find({where: {id: In(args.userIDs)}});
     const createdProject = await this.projectRepository.save(entity);
     pubSub.publish('projectCreated', { projectCreated: createdProject });
     return createdProject;
