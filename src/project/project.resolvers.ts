@@ -9,6 +9,8 @@ import { In, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Roles } from '../auth/roles.decorator';
 import { UserEntity } from '../user/user.entity';
+import { JwtAuthGuard } from '../auth/interfaces/jwt-auth.guard';
+import { GqlAuthGuard } from '../auth/auth.guard';
 
 const pubSub = new PubSub();
 
@@ -22,7 +24,7 @@ export class ProjectResolvers {
   }
 
   @Query()
-  @UseGuards(ProjectGuard)
+  @UseGuards(GqlAuthGuard)
   async getProjects() {
     return await this.projectRepository.find();
   }

@@ -6,7 +6,6 @@ import { JwtAuthGuard } from './interfaces/jwt-auth.guard';
 export class GqlAuthGuard extends JwtAuthGuard {
   getRequest(context: ExecutionContext) {
     const ctx = GqlExecutionContext.create(context);
-    console.log(context.switchToHttp().getRequest());
     return ctx.getContext().req;
   }
 }
