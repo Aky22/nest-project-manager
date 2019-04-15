@@ -12,15 +12,20 @@ export class AuthService {
   ) {
   }
 
-  async signIn(): Promise<string> {
+ /* async signIn(): Promise<string> {
     // In the real-world app you shouldn't expose this method publicly
     // instead, return a token once you verify user credentials
-    const user: JwtPayload = { username: 'test' };
-    return this.jwtService.sign(user);
-  }
+    //const user: JwtPayload = { username: 'test' };
+    /return this.jwtService.sign(user);
+  }*/
 
   async validateUser(username: string, password: string): Promise<any> {
     return await this.usersService.validate(username, password);
+  }
+
+  async validateToken(payload: JwtPayload) {
+    console.log(payload);
+    return payload;
   }
 
   public async login(username: string, password: string): Promise<any | { status: number }> {
@@ -31,6 +36,7 @@ export class AuthService {
       const payload = {
         username: userData.username,
         id: userData.id,
+        role: userData.role,
       };
       const accessToken = this.jwtService.sign(payload);
 

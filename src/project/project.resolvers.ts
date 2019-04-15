@@ -24,7 +24,8 @@ export class ProjectResolvers {
   }
 
   @Query()
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(JwtAuthGuard)
+  @Roles('admin')
   async getProjects() {
     return await this.projectRepository.find();
   }
