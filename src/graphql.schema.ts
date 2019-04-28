@@ -40,9 +40,9 @@ export class JwtPayload {
 export abstract class IMutation {
     abstract createProject(createProjectInput?: CreateProjectInput): Project | Promise<Project>;
 
-    abstract createUser(createUserInput?: CreateUserInput): User | Promise<User>;
-
     abstract createTask(createTaskInput?: CreateTaskInput): Task | Promise<Task>;
+
+    abstract createUser(createUserInput?: CreateUserInput): User | Promise<User>;
 }
 
 export class Project {
@@ -59,15 +59,15 @@ export abstract class IQuery {
 
     abstract project(id: string): Project | Promise<Project>;
 
+    abstract getTasks(): Task[] | Promise<Task[]>;
+
+    abstract task(id: string): Task | Promise<Task>;
+
     abstract getUsers(): User[] | Promise<User[]>;
 
     abstract user(id: string): User | Promise<User>;
 
     abstract login(username: string, password?: string): JwtPayload | Promise<JwtPayload>;
-
-    abstract getTasks(): Task[] | Promise<Task[]>;
-
-    abstract task(id: string): Task | Promise<Task>;
 
     abstract temp__(): boolean | Promise<boolean>;
 }
@@ -75,9 +75,9 @@ export abstract class IQuery {
 export abstract class ISubscription {
     abstract projectCreated(): Project | Promise<Project>;
 
-    abstract userCreated(): User | Promise<User>;
-
     abstract taskCreated(): Task | Promise<Task>;
+
+    abstract userCreated(): User | Promise<User>;
 }
 
 export class Task {

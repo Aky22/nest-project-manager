@@ -10,7 +10,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Roles } from '../auth/roles.decorator';
 import { UserEntity } from '../user/user.entity';
 import { JwtAuthGuard } from '../auth/interfaces/jwt-auth.guard';
-import { GqlAuthGuard } from '../auth/auth.guard';
+import { RolesGuard } from '../auth/auth.guard';
 
 const pubSub = new PubSub();
 

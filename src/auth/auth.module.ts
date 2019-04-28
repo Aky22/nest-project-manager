@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
 import { UserModule } from '../user/user.module';
 import { PassportModule } from '@nestjs/passport';
-import { GqlAuthGuard } from './auth.guard';
+import { RolesGuard } from './auth.guard';
 import { UserEntity } from '../user/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -20,7 +20,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     }),
     UserModule,
   ],
-  providers: [AuthService, JwtStrategy, GqlAuthGuard],
+  providers: [AuthService, JwtStrategy, RolesGuard],
   exports: [PassportModule, AuthService],
 })
 
