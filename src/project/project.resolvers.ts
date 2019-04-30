@@ -10,11 +10,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Roles } from '../auth/roles.decorator';
 import { UserEntity } from '../user/user.entity';
 import { JwtAuthGuard } from '../auth/interfaces/jwt-auth.guard';
-import { RolesGuard } from '../auth/auth.guard';
 
 const pubSub = new PubSub();
 
 @Resolver('Project')
+@UseGuards(JwtAuthGuard)
+@Roles('admin')
 export class ProjectResolvers {
   constructor(
     @InjectRepository(ProjectEntity)
@@ -24,8 +25,6 @@ export class ProjectResolvers {
   }
 
   @Query()
-  @UseGuards(JwtAuthGuard)
-  @Roles('admin')
   async getProjects() {
     return await this.projectRepository.find();
   }

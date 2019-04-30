@@ -8,7 +8,6 @@ import { UserEntity } from './user.entity';
 import { UserGuard } from './user.guard';
 import { JwtPayload } from '../auth/interfaces/jwt-payload.interface';
 import { AuthService } from '../auth/auth.service';
-import { GqlAuthGuard } from '../auth/auth.guard';
 
 const pubSub = new PubSub();
 
