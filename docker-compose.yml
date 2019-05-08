@@ -1,13 +1,26 @@
 version: '3'
 services:
-  mysql:
-    image: mysql
-    command: ["--default-authentication-plugin=mysql_native_password"]
-    container_name: nest_product_page_mysql
-    volumes:
-      - .docker/data/db:/var/lib/mysql
+  prisma:
+    image: prismagraphql/prisma:1.31
+    restart: always
     ports:
-      - "3306:3306"
+      - '4466:4466'
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: product_page
+      PRISMA_CONFIG: |
+        port: 4466
+        databases:
+          default:
+            connector: mysql
+            host: mysql
+            port: 3306
+            user: root
+            password: prisma
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: prisma
+    volumes:
+      - mysqls:/var/lib/mysql
+volumes:
+  mysqls: ~

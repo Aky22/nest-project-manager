@@ -12,7 +12,7 @@ type Subscription {
 }
 
 type Project {
-    id: Int
+    projectId: Int
     name: String
     description: String
     tasks: [Task]

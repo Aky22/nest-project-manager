@@ -1,13 +1,10 @@
 import { JwtService } from '@nestjs/jwt';
 import { Injectable } from '@nestjs/common';
-import { UserService } from '../user/user.service';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
-import { UserEntity } from '../user/user.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly usersService: UserService,
     private readonly jwtService: JwtService,
   ) {
   }
@@ -19,16 +16,17 @@ export class AuthService {
     /return this.jwtService.sign(user);
   }*/
 
-  async validateUser(username: string, password: string): Promise<any> {
-    return await this.usersService.validate(username, password);
-  }
+  /*async validateUser(username: string, password: string): Promise<any> {
+    //return await this.usersService.validate(username, password);
+    return
+  }*/
 
   async validateToken(payload: JwtPayload) {
     console.log(payload);
     return payload;
   }
 
-  public async login(username: string, password: string): Promise<any | { status: number }> {
+  /*public async login(username: string, password: string): Promise<any | { status: number }> {
     return this.validateUser(username, password).then((userData) => {
       if (!userData) {
         return { status: 404 };
@@ -48,6 +46,6 @@ export class AuthService {
       };
 
     });
-  }
+  }*/
 
 }
