@@ -24,6 +24,7 @@ export class UserResolvers {
 
   @Mutation('createUser')
   async createPost(@Args() args, @Info() info): Promise<User> {
+    args.data.password = this.crypto.createHmac('sha256', args.data.password).digest('hex');
     return await this.prisma.mutation.createUser(args, info);
   }
 

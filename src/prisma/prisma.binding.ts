@@ -116,8 +116,8 @@ type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
-type User implements Node {
-  id: ID!
+type User {
+  u_id: ID!
   username: String!
   password: String!
   email: String!
@@ -135,7 +135,7 @@ type UserConnection {
 }
 
 input UserCreateInput {
-  id: ID
+  u_id: ID
   username: String!
   password: String!
   email: String!
@@ -152,8 +152,8 @@ type UserEdge {
 }
 
 enum UserOrderByInput {
-  id_ASC
-  id_DESC
+  u_id_ASC
+  u_id_DESC
   username_ASC
   username_DESC
   password_ASC
@@ -165,7 +165,7 @@ enum UserOrderByInput {
 }
 
 type UserPreviousValues {
-  id: ID!
+  u_id: ID!
   username: String!
   password: String!
   email: String!
@@ -232,46 +232,46 @@ input UserWhereInput {
 
   """Logical NOT on all given filters combined by AND."""
   NOT: [UserWhereInput!]
-  id: ID
+  u_id: ID
 
   """All values that are not equal to given value."""
-  id_not: ID
+  u_id_not: ID
 
   """All values that are contained in given list."""
-  id_in: [ID!]
+  u_id_in: [ID!]
 
   """All values that are not contained in given list."""
-  id_not_in: [ID!]
+  u_id_not_in: [ID!]
 
   """All values less than the given value."""
-  id_lt: ID
+  u_id_lt: ID
 
   """All values less than or equal the given value."""
-  id_lte: ID
+  u_id_lte: ID
 
   """All values greater than the given value."""
-  id_gt: ID
+  u_id_gt: ID
 
   """All values greater than or equal the given value."""
-  id_gte: ID
+  u_id_gte: ID
 
   """All values containing the given string."""
-  id_contains: ID
+  u_id_contains: ID
 
   """All values not containing the given string."""
-  id_not_contains: ID
+  u_id_not_contains: ID
 
   """All values starting with the given string."""
-  id_starts_with: ID
+  u_id_starts_with: ID
 
   """All values not starting with the given string."""
-  id_not_starts_with: ID
+  u_id_not_starts_with: ID
 
   """All values ending with the given string."""
-  id_ends_with: ID
+  u_id_ends_with: ID
 
   """All values not ending with the given string."""
-  id_not_ends_with: ID
+  u_id_not_ends_with: ID
   username: String
 
   """All values that are not equal to given value."""
@@ -435,7 +435,7 @@ input UserWhereInput {
 }
 
 input UserWhereUniqueInput {
-  id: ID
+  u_id: ID
 }
 `
 
@@ -449,8 +449,8 @@ export type MutationType =   'CREATED' |
   'UPDATED' |
   'DELETED'
 
-export type UserOrderByInput =   'id_ASC' |
-  'id_DESC' |
+export type UserOrderByInput =   'u_id_ASC' |
+  'u_id_DESC' |
   'username_ASC' |
   'username_DESC' |
   'password_ASC' |
@@ -461,7 +461,7 @@ export type UserOrderByInput =   'id_ASC' |
   'role_DESC'
 
 export interface UserCreateInput {
-  id?: ID_Input | null
+  u_id?: ID_Input | null
   username: String
   password: String
   email: String
@@ -497,20 +497,20 @@ export interface UserWhereInput {
   AND?: UserWhereInput[] | UserWhereInput | null
   OR?: UserWhereInput[] | UserWhereInput | null
   NOT?: UserWhereInput[] | UserWhereInput | null
-  id?: ID_Input | null
-  id_not?: ID_Input | null
-  id_in?: ID_Output[] | ID_Output | null
-  id_not_in?: ID_Output[] | ID_Output | null
-  id_lt?: ID_Input | null
-  id_lte?: ID_Input | null
-  id_gt?: ID_Input | null
-  id_gte?: ID_Input | null
-  id_contains?: ID_Input | null
-  id_not_contains?: ID_Input | null
-  id_starts_with?: ID_Input | null
-  id_not_starts_with?: ID_Input | null
-  id_ends_with?: ID_Input | null
-  id_not_ends_with?: ID_Input | null
+  u_id?: ID_Input | null
+  u_id_not?: ID_Input | null
+  u_id_in?: ID_Output[] | ID_Output | null
+  u_id_not_in?: ID_Output[] | ID_Output | null
+  u_id_lt?: ID_Input | null
+  u_id_lte?: ID_Input | null
+  u_id_gt?: ID_Input | null
+  u_id_gte?: ID_Input | null
+  u_id_contains?: ID_Input | null
+  u_id_not_contains?: ID_Input | null
+  u_id_starts_with?: ID_Input | null
+  u_id_not_starts_with?: ID_Input | null
+  u_id_ends_with?: ID_Input | null
+  u_id_not_ends_with?: ID_Input | null
   username?: String | null
   username_not?: String | null
   username_in?: String[] | String | null
@@ -570,7 +570,7 @@ export interface UserWhereInput {
 }
 
 export interface UserWhereUniqueInput {
-  id?: ID_Input | null
+  u_id?: ID_Input | null
 }
 
 /*
@@ -600,8 +600,8 @@ export interface PageInfo {
   endCursor?: String | null
 }
 
-export interface User extends Node {
-  id: ID_Output
+export interface User {
+  u_id: ID_Output
   username: String
   password: String
   email: String
@@ -628,7 +628,7 @@ export interface UserEdge {
 }
 
 export interface UserPreviousValues {
-  id: ID_Output
+  u_id: ID_Output
   username: String
   password: String
   email: String

@@ -12,8 +12,8 @@ export enum MutationType {
 }
 
 export enum UserOrderByInput {
-    id_ASC = "id_ASC",
-    id_DESC = "id_DESC",
+    u_id_ASC = "u_id_ASC",
+    u_id_DESC = "u_id_DESC",
     username_ASC = "username_ASC",
     username_DESC = "username_DESC",
     password_ASC = "password_ASC",
@@ -37,7 +37,7 @@ export class CreateTaskInput {
 }
 
 export class UserCreateInput {
-    id?: string;
+    u_id?: string;
     username: string;
     password: string;
     email: string;
@@ -73,20 +73,20 @@ export class UserWhereInput {
     AND: UserWhereInput[];
     OR: UserWhereInput[];
     NOT: UserWhereInput[];
-    id?: string;
-    id_not?: string;
-    id_in: string[];
-    id_not_in: string[];
-    id_lt?: string;
-    id_lte?: string;
-    id_gt?: string;
-    id_gte?: string;
-    id_contains?: string;
-    id_not_contains?: string;
-    id_starts_with?: string;
-    id_not_starts_with?: string;
-    id_ends_with?: string;
-    id_not_ends_with?: string;
+    u_id?: string;
+    u_id_not?: string;
+    u_id_in: string[];
+    u_id_not_in: string[];
+    u_id_lt?: string;
+    u_id_lte?: string;
+    u_id_gt?: string;
+    u_id_gte?: string;
+    u_id_contains?: string;
+    u_id_not_contains?: string;
+    u_id_starts_with?: string;
+    u_id_not_starts_with?: string;
+    u_id_ends_with?: string;
+    u_id_not_ends_with?: string;
     username?: string;
     username_not?: string;
     username_in: string[];
@@ -146,7 +146,7 @@ export class UserWhereInput {
 }
 
 export class UserWhereUniqueInput {
-    id?: string;
+    u_id?: string;
 }
 
 export interface Node {
@@ -213,8 +213,8 @@ export class Task {
     project?: Project;
 }
 
-export class User implements Node {
-    id: string;
+export class User {
+    u_id: string;
     username: string;
     password: string;
     email: string;
@@ -233,7 +233,7 @@ export class UserEdge {
 }
 
 export class UserPreviousValues {
-    id: string;
+    u_id: string;
     username: string;
     password: string;
     email: string;

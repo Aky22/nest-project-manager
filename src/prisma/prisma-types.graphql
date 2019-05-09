@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Wed May 08 2019 22:00:47 GMT+0200 (GMT+02:00)
+# timestamp: Thu May 09 2019 09:24:19 GMT+0200 (GMT+02:00)
 
 type AggregateUser {
   count: Int!
@@ -68,8 +68,8 @@ type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
-type User implements Node {
-  id: ID!
+type User {
+  u_id: ID!
   username: String!
   password: String!
   email: String!
@@ -87,7 +87,7 @@ type UserConnection {
 }
 
 input UserCreateInput {
-  id: ID
+  u_id: ID
   username: String!
   password: String!
   email: String!
@@ -104,8 +104,8 @@ type UserEdge {
 }
 
 enum UserOrderByInput {
-  id_ASC
-  id_DESC
+  u_id_ASC
+  u_id_DESC
   username_ASC
   username_DESC
   password_ASC
@@ -117,7 +117,7 @@ enum UserOrderByInput {
 }
 
 type UserPreviousValues {
-  id: ID!
+  u_id: ID!
   username: String!
   password: String!
   email: String!
@@ -184,46 +184,46 @@ input UserWhereInput {
 
   """Logical NOT on all given filters combined by AND."""
   NOT: [UserWhereInput!]
-  id: ID
+  u_id: ID
 
   """All values that are not equal to given value."""
-  id_not: ID
+  u_id_not: ID
 
   """All values that are contained in given list."""
-  id_in: [ID!]
+  u_id_in: [ID!]
 
   """All values that are not contained in given list."""
-  id_not_in: [ID!]
+  u_id_not_in: [ID!]
 
   """All values less than the given value."""
-  id_lt: ID
+  u_id_lt: ID
 
   """All values less than or equal the given value."""
-  id_lte: ID
+  u_id_lte: ID
 
   """All values greater than the given value."""
-  id_gt: ID
+  u_id_gt: ID
 
   """All values greater than or equal the given value."""
-  id_gte: ID
+  u_id_gte: ID
 
   """All values containing the given string."""
-  id_contains: ID
+  u_id_contains: ID
 
   """All values not containing the given string."""
-  id_not_contains: ID
+  u_id_not_contains: ID
 
   """All values starting with the given string."""
-  id_starts_with: ID
+  u_id_starts_with: ID
 
   """All values not starting with the given string."""
-  id_not_starts_with: ID
+  u_id_not_starts_with: ID
 
   """All values ending with the given string."""
-  id_ends_with: ID
+  u_id_ends_with: ID
 
   """All values not ending with the given string."""
-  id_not_ends_with: ID
+  u_id_not_ends_with: ID
   username: String
 
   """All values that are not equal to given value."""
@@ -387,5 +387,5 @@ input UserWhereInput {
 }
 
 input UserWhereUniqueInput {
-  id: ID
+  u_id: ID
 }
