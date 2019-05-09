@@ -1,6 +1,6 @@
 type Query {
     getProjects: [Project]
-    project(id: ID!): Project
+    project(Pid: ID!): Project
 }
 
 type Mutation {
@@ -12,7 +12,7 @@ type Subscription {
 }
 
 type Project {
-    id: Int
+    Pid: Int
     name: String
     description: String
     tasks: [Task]
