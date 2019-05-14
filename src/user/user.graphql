@@ -1,6 +1,6 @@
 type Query {
     getUsers: [User]
-    user(id: ID!):User
+    user(Uid: ID!):User
     login(username: String!, password: String): JwtPayload
 }
 
@@ -13,7 +13,7 @@ type Subscription {
 }
 
 type User {
-    id: Int
+    Uid: Int
     username: String
     password: String
     email: String
