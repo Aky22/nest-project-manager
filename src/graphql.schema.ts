@@ -46,7 +46,7 @@ export abstract class IMutation {
 }
 
 export class Project {
-    id?: number;
+    projectId: string;
     name?: string;
     description?: string;
     tasks?: Task[];
@@ -57,7 +57,7 @@ export class Project {
 export abstract class IQuery {
     abstract getProjects(): Project[] | Promise<Project[]>;
 
-    abstract project(id: string): Project | Promise<Project>;
+    abstract project(projectId: string): Project | Promise<Project>;
 
     abstract getTasks(): Task[] | Promise<Task[]>;
 

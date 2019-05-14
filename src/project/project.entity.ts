@@ -5,7 +5,7 @@ import { UserEntity } from '../user/user.entity';
 @Entity()
 export class ProjectEntity {
     @PrimaryGeneratedColumn()
-    id?: number;
+    projectId?: string;
 
     @Column({ length: 200 })
     name?: string;

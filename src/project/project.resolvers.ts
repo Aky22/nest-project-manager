@@ -25,16 +25,17 @@ export class ProjectResolvers {
   }
 
   @Query()
+  @Roles('admin')
   async getProjects() {
     return await this.projectRepository.find();
   }
 
   @Query()
   async project(
-    @Args('id', ParseIntPipe)
-      id: number,
+    @Args('projectId', ParseIntPipe)
+      projectId: string,
   ): Promise<ProjectEntity> {
-    return await this.projectRepository.findOne(id);
+    return await this.projectRepository.findOne({where: {id: projectId}});
   }
 
   @ResolveProperty('taskCount')
